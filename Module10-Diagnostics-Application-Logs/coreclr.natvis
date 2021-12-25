@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+    <Type Name="CorUnix::CSimpleHandleManager::HANDLE_TABLE_ENTRY">
+        <Expand>
+            <Item Name="NextHandleIndex" Condition="!(*((UINT_PTR *)this + 1) &amp; 0x1)">*((unsigned __int32*)this)</Item>
+            <Item Name="PalObject" Condition="(*((UINT_PTR *)this + 1) &amp; 0x1)">(*(CorUnix::CPalObjectBase **)this)</Item>
+            <Item Name="Allocated">(*((UINT_PTR *)this + 1) &amp; 0x1)</Item>
+        </Expand>
+    </Type>
+    <Type Name="CorUnix::CSimpleHandleManager">
+        <DisplayString>{{size = {m_dwTableSize}}}</DisplayString>
+        <Expand>
+            <Item Name="Handles">m_rghteHandleTable</Item>
+            <IndexListItems>
+                <Size>m_dwTableSize</Size>
+                <ValueNode>(CorUnix::CSimpleHandleManager::HANDLE_TABLE_ENTRY *)((char *)m_rghteHandleTable + $i * 16)</ValueNode>
+            </IndexListItems>
+        </Expand>
+    </Type>
+</AutoVisualizer>
